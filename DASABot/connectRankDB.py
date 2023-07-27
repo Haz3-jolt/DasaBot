@@ -26,7 +26,7 @@ class connectDB:
 
 
     # constants, try not to change
-    DB_KEY_FILENAME = "db_key.json"
+    DB_KEY_FILENAME = "DASABot\db_key.json"
     RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
 
 
