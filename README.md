@@ -1,6 +1,3 @@
-_amol is **very** hot_
-
-
 ### Following are the required pre-requisites:
 The following libraries can also be found in `requirements.txt` by running the following command:  
 `pip install -r requirements.txt`
@@ -48,7 +45,8 @@ NOTE: The code assumes the presence of the `gspread` library and a valid service
 
 ### Contributors:
 
-- [Haz3jolt](https://github.com/Haz3-jolt): Worked in both front end and back end, designed algorithms for airport command and designed part of the legacy discord interface. Helped transition the codebase from legacy discord commands to modern slash commands using discord.py
+- [Haz3jolt](https://github.com/Haz3-jolt): Worked in both front end and back end, designed algorithms for airport command and designed part of the legacy discord interface.
+Created the original commands system which was later replaced by koshy's update. Helped transition the codebase from legacy discord commands to modern slash commands using discord.py
 - [Koshy](https://github.com/koshyj8): Front-end Manager. Structured and designed front-end interface and coded discord slash commands to pull data from database
 - [Cookie](https://github.com/CookieOnCode): Back-end Manager. Established and converted DASA cutoffs to usable data in XLS format. Coded algorithms to sift through data to return requested information. 
 - [Amol](https://github.com/AmolOnGitHub): Full-Stack Developer. Assisted in mapping of DASA ranks with JEE ranks within database and laid foundation for connectrankdb
