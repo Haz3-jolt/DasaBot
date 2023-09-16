@@ -22,7 +22,7 @@ class DASAResults(commands.Cog):
 
 
     @commands.command()
-    @commands.has_permissions(administrator=True)
+    @commands.has_role(986257888613920788)
     async def resupd(self, ctx, year = None):
         if ctx.guild.id != self.DASA_GUILD_ID:
             await ctx.send("Command cannot be used in this guild.")
@@ -122,7 +122,7 @@ class DASAResults(commands.Cog):
 
     #Legacy bot announcement
     @commands.command()
-    @commands.has_permissions(administrator=True)
+    @commands.has_role(986257888613920788)
     async def online(self, ctx, year = None):
         if ctx.guild.id != 1123237875941654659:
             await ctx.send("Command cannot be used in this guild.")
