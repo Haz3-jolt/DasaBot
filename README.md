@@ -12,6 +12,12 @@ pretty-help - `pip install discord-pretty-help`
 
 # Summary
 
+---
+
+This is a discord bot which fetches the cutoffs, college lists based on rank and closest airports via discord slash commands, parses them in mainBot.py, then asks for the relavent data from connectRankDB.py which parses it once again for any nicknames used (ex: nitt for nit Trichy). It then fetches it from a Google sheets database.
+
+---
+
 ## Code Breakdown:
 
 ### mainBot.py
