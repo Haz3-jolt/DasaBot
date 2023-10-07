@@ -27,7 +27,7 @@ class connectDB:
     '''
 
     # constants, try not to change
-    DB_KEY_FILENAME = "DASA-Bot\db_key.json"
+    DB_KEY_FILENAME = "DasaBot\DASABot\db_key.json"
     RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
 
     # function to get sheet data for a specific year and round
@@ -237,7 +237,7 @@ class connectDB:
         # connects to DB
 
         # gets path name of db_key.json
-        db_key_path = os.path.abspath(connectDB.DB_KEY_FILENAME)
+        db_key_path = 'DasaBot\DASABot\db_key.json'
         # connects to service account
         gc = gspread.service_account(filename=f'{db_key_path}')
 
