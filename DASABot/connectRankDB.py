@@ -253,5 +253,5 @@ class connectDB:
 
 
 obj = connectDB()
-#Uncomment next line for testing
+#Uncomment next line for testing on terminal other wise leave it commented.
 #obj.testing()
