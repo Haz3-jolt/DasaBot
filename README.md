@@ -3,8 +3,8 @@ The following libraries can also be found in `requirements.txt` by running the f
 `pip install -r requirements.txt`  
 
 NOTE: Create a .env file with your environment variables in the example_.env file included.
-
 NOTE: Create a JSON file with your required info in the example_db_key.json file included.
+
 ---
 
 # Summary
