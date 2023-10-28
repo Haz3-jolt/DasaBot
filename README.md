@@ -101,10 +101,10 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ### Contributors
 
-- [Haz3jolt](https://github.com/Haz3-jolt): Worked on both front-end and back-end, designed algorithms for the airport command, and contributed to the legacy Discord interface. Created the original command system, later replaced by Koshy's update, and assisted in transitioning the codebase to modern slash commands using Discord.py.
+- [Haz3jolt](https://github.com/Haz3-jolt): Designed algorithms for the airport command, and contributed to the legacy Discord interface. Created the original command system, later replaced by Koshy's update, and transitioned the repo to modern slash commands. Also formated the README.md file and added example files for anyone intrested in forking the repo.
 
-- [Koshy](https://github.com/koshyj8): Structured and designed the front-end interface, coded Discord slash commands to retrieve data from the database, and redesigned the bot's output from messages to embeds for a more user-friendly design. Also collaborated on the airport command with Haz3jolt.
+- [Koshy](https://github.com/koshyj8): Structured and designed the front-end interface, coded Discord slash commands to retrieve data from the database, and redesigned the bot's output from messages to embeded messages with a cleaner design, added a button to save to DMs and a auto-delete function to declutter the chat. Also collaborated on the airport command with Haz3jolt. 
 
-- [Cookie](https://github.com/CookieOnCode): Established and converted DASA cutoffs into usable XLS format. Created most of the algorithms in [connectRankDB.py](connectRankDB.py) to extract requested information from the database. Managed the test server and developer account for the bot, including relevant tokens.
+- [Cookie](https://github.com/CookieOnCode): Established and converted DASA cutoffs into usable XLS format. Created most of the algorithms in [connectRankDB.py](DASABot/connectRankDB.py) to extract requested information from the database. Managed the test server and developer account for the bot, including relevant tokens. 
 
-- [Amol](https://github.com/AmolOnGitHub): Assisted in mapping DASA ranks with JEE ranks in the database and laid the foundation for [connectrankdb.py](connectRankDB.py) and [mainBot.py](mainBot.py). Worked on an admin-level command, `resupd`, to automatically update the server's results tab. Integrated the dotenv library to secure API and login tokens.
+- [Amol](https://github.com/AmolOnGitHub): Assisted in mapping DASA ranks with JEE ranks in the database and laid the foundation for [connectrankdb.py](DASABot/connectRankDB.py) and [mainBot.py](DASABot/mainBot.py). Worked on an admin-level command, `resupd`, to automatically update the server's results tab. Integrated the dotenv library to secure API and login tokens.
