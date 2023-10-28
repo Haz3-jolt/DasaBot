@@ -5,6 +5,7 @@
 - [Summary](#summary)
 - [How to Use the Bot](#how-to-use-the-bot)
 - [Project Structure](#project-structure)
+- [License](#license)
 - [Contributors](#contributors)
 
 ### Required Dependencies
@@ -15,7 +16,7 @@ pip install -r requirements.txt
 
 ### Summary
 
-DasaBot is a versatile Discord bot designed to provide information about cutoffs, college lists, and closest airports. It offers these details via Discord slash commands, processes the requests in mainBot.py, communicates with connectRankDB.py for relevant data, and analyzes user input for any college nicknames (e.g., "nitt" for NIT Trichy). It retrieves data from a Google Sheets database and delivers the results to Discord.
+DasaBot is a versatile Discord bot designed to provide information about cutoffs, college lists, and closest airports. It offers these details via Discord slash commands, processes the requests in [mainBot.py](mainBot.py), communicates with [connectRankDB.py](connectRankDB.py) for relevant data, and analyzes user input for any college nicknames (e.g., "nitt" for NIT Trichy). It retrieves data from a Google Sheets database and delivers the results to Discord.
 
 **Note:** This project is a fork of the original [DasaBot](https://github.com/DASA-boys/DASA-Bot), a collaborative effort of several authors.
 
@@ -53,11 +54,11 @@ DasaBot features several slash commands that enable you to retrieve specific inf
 
 ### Project Structure
 
-#### connectRankDB.py
+#### [connectRankDB.py](connectRankDB.py)
 
 - This script manages data retrieval from a Google Sheets database.
 - It uses the `gspread` library for interaction with Google Sheets, as well as `os` and `pathlib` for file handling.
-- The script establishes a data connection to Google Sheets using service account credentials loaded from a JSON file (`"DASABot/db_key.json"`).
+- The script establishes a data connection to Google Sheets using service account credentials loaded from a JSON file ([db_key.json](DASABot/db_key.json)).
 - It opens a specific Google sheet, retrieves worksheets, and stores data in a nested list format for program operations.
 - Methods include:
   - `get_sheet`: Searches for the worksheet containing the cutoffs of a specific year and round.
@@ -70,16 +71,16 @@ DasaBot features several slash commands that enable you to retrieve specific inf
   - `analysis`: Returns colleges filtered by the difference between the user's CRL and a college's Round 3 JEE Closing cutoff.
   - `get_airport_stats`: Provides information about airports closest to colleges.
 
-#### mainBot.py
+#### [mainBot.py](mainBot.py)
 
 - This script is the main script for interacting with the Discord API to log in the bot.
 - It listens for Discord slash command pings and utilizes the `connectRankDB.py` class `connectDB` to retrieve data from the Google Sheets database.
-- All commands for the slash commands are stored in the `dasa.py` script in the `cogs` folder.
+- All commands for the slash commands are stored in the [dasa.py](cogs/dasa.py) script in the `cogs` folder.
 - Additional functionality includes:
   - `reload()`: Reloads cogs.
   - `shut()`: Shuts down the bot.
 
-#### dasa.py
+#### [dasa.py](cogs/dasa.py)
 
 - This script is a command extension file containing commands related to DASA.
 - Commands include:
@@ -87,12 +88,16 @@ DasaBot features several slash commands that enable you to retrieve specific inf
   - `analyze`: Find colleges with closing rank cutoffs closest to a specified rank.
   - `airport`: Get information about the closest airport to a requested college.
 
-#### dasa_res.py
+#### [dasa_res.py](cogs/dasa_res.py)
 
 - This script is a command extension file for moderator use to manage the results tab on the server.
 - `resupd` is a mod-only non-slash command that updates server members' results and adds them to the server's results tab based on relevant year and college roles.
 
-**Note:** The repository assumes the presence of the `gspread` library and a valid service account JSON file with appropriate access to the Google Sheet. Create a `.env` file with environment variables and use the provided `.example_env` file as a reference.
+**Note:** The repository assumes the presence of the `gspread` library and a valid service account JSON file with appropriate access to the Google Sheet. Create a `.env` file with environment variables and use the provided [.example_env](.example_env) file as a reference.
+
+### License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 ### Contributors
 
@@ -100,6 +105,6 @@ DasaBot features several slash commands that enable you to retrieve specific inf
 
 - [Koshy](https://github.com/koshyj8): Structured and designed the front-end interface, coded Discord slash commands to retrieve data from the database, and redesigned the bot's output from messages to embeds for a more user-friendly design. Also collaborated on the airport command with Haz3jolt.
 
-- [Cookie](https://github.com/CookieOnCode): Established and converted DASA cutoffs into usable XLS format. Created most of the algorithms in `connectRankDB.py` to extract requested information from the database. Managed the test server and developer account for the bot, including relevant tokens.
+- [Cookie](https://github.com/CookieOnCode): Established and converted DASA cutoffs into usable XLS format. Created most of the algorithms in [connectRankDB.py](connectRankDB.py) to extract requested information from the database. Managed the test server and developer account for the bot, including relevant tokens.
 
-- [Amol](https://github.com/AmolOnGitHub): Assisted in mapping DASA ranks with JEE ranks in the database and laid the foundation for `connectrankdb.py` and `mainBot.py`. Worked on an admin-level command, `resupd`, to automatically update
+- [Amol](https://github.com/AmolOnGitHub): Assisted in mapping DASA ranks with JEE ranks in the database and laid the foundation for [connectrankdb.py](connectRankDB.py) and [mainBot.py](mainBot.py). Worked on an admin-level command, `resupd`, to automatically update the server's results tab. Integrated the dotenv library to secure API and login tokens.
