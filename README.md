@@ -1,12 +1,6 @@
 ### Following are the required pre-requisites:
 The following libraries can also be found in `requirements.txt` by running the following command:  
-`pip install -r requirements.txt`
-
-gspread - `pip install gspread`  
-dotenv - `pip install python-dotenv`  
-discord.py - `pip install discord.py`  
-discord.py-pagination - `pip install discord.py-pagination`  
-pretty-help - `pip install discord-pretty-help`   
+`pip install -r requirements.txt`  
 
 ---
 
