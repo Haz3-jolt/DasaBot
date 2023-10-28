@@ -70,9 +70,9 @@ Upon this, there are multiple methods to execute specific functions:
 - `airport` - This command returens the closest airport to a requested college, the airport code, and distance from airport to the college. 
   
 
-NOTE: The code assumes the presence of the `gspread` library and a valid service account JSON file with the appropriate access to the Google Sheet.
+NOTE: The repo assumes the presence of the `gspread` library and a valid service account JSON file with the appropriate access to the Google Sheet.
 
-NOTE: Create a .env file with your environment variables in the example_.env file included and create a JSON file with your required info in the example_db_key.json file included.
+NOTE: Create a .env file with your environment variables in the example_.env file included and create a valid service account JSON file called db_key.json file with your required info in the example_db_key.json file included. If your forking this repo be sure to create a .gitignore to not leak your API tokens, and login info.
 
 ---
 
