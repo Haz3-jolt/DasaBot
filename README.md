@@ -8,7 +8,9 @@ The following libraries can also be found in `requirements.txt` by running the f
 
 ---
 
-This is a discord bot which fetches the cutoffs, college lists based on rank and closest airports via discord slash commands, parses them in mainBot.py, then asks for the relavent data from connectRankDB.py which parses it once again for any nicknames used (ex: nitt for nit Trichy). It then fetches it from a Google sheets database.
+This is a discord bot which fetches the cutoffs, college lists based on rank and closest airports via discord slash commands, parses them in mainBot.py, then asks for the relavent data from connectRankDB.py and then analyses the request for any nicknames used (ex: nitt for nit Trichy), It then fetches it from a Google sheets database and finally outputs to discord.
+
+NOTE: This is a fork of the original [DasaBot](https://github.com/DASA-boys/DASA-Bot) which was created with equal collabaration with all of my co-authors without which this project will not have been possible. 
 
 ## Here are the slash commands:
 ![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/1da691da-74fd-47ba-962d-6a43ec616cf8)
