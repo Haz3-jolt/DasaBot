@@ -2,9 +2,6 @@
 The following libraries can also be found in `requirements.txt` by running the following command:  
 `pip install -r requirements.txt`  
 
-NOTE: Create a .env file with your environment variables in the example_.env file included.
-NOTE: Create a JSON file with your required info in the example_db_key.json file included.
-
 ---
 
 # Summary
@@ -75,7 +72,11 @@ Upon this, there are multiple methods to execute specific functions:
 
 NOTE: The code assumes the presence of the `gspread` library and a valid service account JSON file with the appropriate access to the Google Sheet.
 
-### Contributors:
+NOTE: Create a .env file with your environment variables in the example_.env file included and create a JSON file with your required info in the example_db_key.json file included.
+
+---
+
+## Contributors:
 
 - [Haz3jolt](https://github.com/Haz3-jolt): Worked in both front end and back end, designed algorithms for airport command and designed part of the legacy discord interface.
 Created the original commands system which was later replaced by koshy's update. Helped transition the codebase from legacy discord commands to modern slash commands using discord.py
