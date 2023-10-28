@@ -6,36 +6,37 @@ The following libraries can also be found in `requirements.txt` by running the f
 
 # Summary
 
----
-
 This is a discord bot which fetches the cutoffs, college lists based on rank and closest airports via discord slash commands, parses them in mainBot.py, then asks for the relavent data from connectRankDB.py and then analyses the request for any nicknames used (ex: nitt for nit Trichy), It then fetches it from a Google sheets database and finally outputs to discord.
 
 NOTE: This is a fork of the original [DasaBot](https://github.com/DASA-boys/DASA-Bot) which was created with equal collabaration with all of my co-authors without which this project will not have been possible. 
 
 ## Here are the slash commands:
-![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/1da691da-74fd-47ba-962d-6a43ec616cf8)
+![image-000](https://github.com/Haz3-jolt/DasaBot/assets/79502699/9d88fd7e-1434-402f-9c19-1e5dbe055e2a)
+
 
 ## Here is what each slash command looks for and what the output would look like:
 
 ### cutoff (branch is optional): 
-![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/b9ef336f-89e1-46f0-b16d-7beca494dfa3)
-![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/f5069c0b-0f1c-4d66-8a62-95b1e89d575b)
-![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/6ddcf460-60c0-4493-84e3-3417439a4d21)
+![image-001](https://github.com/Haz3-jolt/DasaBot/assets/79502699/6f3f1a64-618f-4217-bd82-a876822c52ea)
+![image-003](https://github.com/Haz3-jolt/DasaBot/assets/79502699/4e06797e-81b8-4fdd-8d33-ebe990e88800)
+![image-002](https://github.com/Haz3-jolt/DasaBot/assets/79502699/9e864e24-1706-4310-a46a-38176ebb62c4)
+![image-004](https://github.com/Haz3-jolt/DasaBot/assets/79502699/a252db12-0408-45cc-9a2c-c3e2c7b9130a)
 
 
 ### analyse (branch is optional): 
-![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/3a4b7e64-4c77-4822-b907-e95c796e37a4)
-![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/51cdfc6d-58f7-486e-8ff5-b74c40d660a8)
-![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/717d526f-7901-4d00-954c-056adca94312)
+![image-005](https://github.com/Haz3-jolt/DasaBot/assets/79502699/e1de1d00-95ca-47f4-bd57-065b03e23d23)
+![image-006](https://github.com/Haz3-jolt/DasaBot/assets/79502699/b79c07a3-33a1-421c-999a-1598049657df)
+![image-007](https://github.com/Haz3-jolt/DasaBot/assets/79502699/4d932f65-4198-4b0c-aa61-e6d918e928de)
 
 
 ### airport:
-![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/0ca4ada3-3d11-40d4-8b0b-9c7f9d2f0bf2)
-![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/807225b5-f0ac-434e-b330-7d604c1a8d4f)
+![image-008](https://github.com/Haz3-jolt/DasaBot/assets/79502699/3a17837c-40f2-4384-a414-513bf87ec43c)
+![image-009](https://github.com/Haz3-jolt/DasaBot/assets/79502699/aea489b4-d00c-4f72-a935-ac3eee4c6acc)
+
 
 ### resupd (Mod only non slash command to update results of members of server):
-![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/03ffe249-48ab-40ac-94a1-08573bc6d194)
-
+![image-010](https://github.com/Haz3-jolt/DasaBot/assets/79502699/d2aa80df-a14c-4eed-88ae-346b2b352652)
+![image-011](https://github.com/Haz3-jolt/DasaBot/assets/79502699/690f378d-fde3-42ba-9338-fadf504ad5ba)
 
 
 ---
@@ -87,9 +88,8 @@ NOTE: Create a .env file with your environment variables in the example_.env fil
 
 ## Contributors:
 
-- [Haz3jolt](https://github.com/Haz3-jolt): Worked in both front end and back end, designed algorithms for airport command and designed part of the legacy discord interface.
-Created the original commands system which was later replaced by Koshy's update. Helped transition the codebase from legacy discord commands to modern slash commands using discord.py
-- [Koshy](https://github.com/koshyj8): Structured and designed front-end interface and coded discord slash commands to pull data from database, also changed the bot's output from messages to embeds with good design.
-- [Cookie](https://github.com/CookieOnCode): Established and converted DASA cutoffs to usable data in XLS format. Created nearly all the algorithms in connectRankDB.py to sift through data to return requested information. 
-- [Amol](https://github.com/AmolOnGitHub): Assisted in mapping of DASA ranks with JEE ranks within database and laid foundation for connectrankdb.py and mainBot.py , Also worked on a admin level command which auto updates the servers results tab called resupd.
+- [Haz3jolt](https://github.com/Haz3-jolt): Worked in both front end and back end, designed algorithms for airport command and designed part of the legacy discord interface. Created the original commands system which was later replaced by Koshy's update. Helped transition the codebase from legacy discord commands to modern slash commands.
+- [Koshy](https://github.com/koshyj8): Structured and designed front-end interface and coded discord slash commands to pull data from database, also changed the bot's output from messages to embeds with more fluid design. Also helped work on the airport command with Haz3jolt. 
+- [Cookie](https://github.com/CookieOnCode): Established and converted DASA cutoffs to usable data in XLS format. Created nearly all the algorithms in connectRankDB.py to fetch the correct data to return requested information. Maintained the test server and managed the developer account for the bot and all relevant tokens. 
+- [Amol](https://github.com/AmolOnGitHub): Assisted in mapping of DASA ranks with JEE ranks within database and laid foundation for connectrankdb.py and mainBot.py , Also worked on a admin level command which auto updates the servers results tab called resupd. Integrated the dotenv lib to maintain the secrecy of the API and login tokens.
 
