@@ -29,10 +29,12 @@ NOTE: This is a fork of the original [DasaBot](https://github.com/DASA-boys/DASA
 ![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/717d526f-7901-4d00-954c-056adca94312)
 
 
-## airport:
+### airport:
 ![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/0ca4ada3-3d11-40d4-8b0b-9c7f9d2f0bf2)
 ![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/807225b5-f0ac-434e-b330-7d604c1a8d4f)
 
+### resupd (Mod only non slash command to update results of members of server):
+![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/03ffe249-48ab-40ac-94a1-08573bc6d194)
 
 
 
@@ -67,9 +69,14 @@ Upon this, there are multiple methods to execute specific functions:
 
 ### dasa.py
 1. This script is an command extension file containing the commands relating to DASA.
-- `cutoff` - This command retrieves the cutoffs for a given college taken from a given year, round, branch and category. If branch is not given, cutoffs for all the      branches from the given college will be displayed.  
+- `cutoff` - This command retrieves the cutoffs for a given college taken from a given year, round, branch and category. If branch is not given, cutoffs for all the branches from the given college will be displayed.  
 - `analyze` - This command returns the colleges whose closing rank cutoffs are closest to the rank inputed by the user. If branch is not givem, cutoffs for all the branches from all the colleges within a close range(i.e. 10000 higher than the given rank) of the given rank is returned.
-- `airport` - This command returens the closest airport to a requested college, the airport code, and distance from airport to the college. 
+- `airport` - This command returens the closest airport to a requested college, the airport code, and distance from airport to the college.
+
+### dasa_res.py
+1. This script is an command extension file for mod use to admin the results tab in the server.
+- `resupd` - This is a Mod only non slash command to update results of members of server which automatically updates the result message on the results tab on the DASA server, and adds the users results by searching for if they have a relevant year role and college role. This also has a method under the DASAResults class which checks if the user has permission to use the command. 
+
   
 
 NOTE: The repo assumes the presence of the `gspread` library and a valid service account JSON file with the appropriate access to the Google Sheet.
@@ -81,8 +88,8 @@ NOTE: Create a .env file with your environment variables in the example_.env fil
 ## Contributors:
 
 - [Haz3jolt](https://github.com/Haz3-jolt): Worked in both front end and back end, designed algorithms for airport command and designed part of the legacy discord interface.
-Created the original commands system which was later replaced by koshy's update. Helped transition the codebase from legacy discord commands to modern slash commands using discord.py
-- [Koshy](https://github.com/koshyj8): Front-end Manager. Structured and designed front-end interface and coded discord slash commands to pull data from database, also changed the bot's output from messages to embeds with good design.
-- [Cookie](https://github.com/CookieOnCode): Back-end Manager. Established and converted DASA cutoffs to usable data in XLS format. Coded algorithms to sift through data to return requested information. 
-- [Amol](https://github.com/AmolOnGitHub): Full-Stack Developer. Assisted in mapping of DASA ranks with JEE ranks within database and laid foundation for connectrankdb
+Created the original commands system which was later replaced by Koshy's update. Helped transition the codebase from legacy discord commands to modern slash commands using discord.py
+- [Koshy](https://github.com/koshyj8): Structured and designed front-end interface and coded discord slash commands to pull data from database, also changed the bot's output from messages to embeds with good design.
+- [Cookie](https://github.com/CookieOnCode): Established and converted DASA cutoffs to usable data in XLS format. Created nearly all the algorithms in connectRankDB.py to sift through data to return requested information. 
+- [Amol](https://github.com/AmolOnGitHub): Assisted in mapping of DASA ranks with JEE ranks within database and laid foundation for connectrankdb.py and mainBot.py , Also worked on a admin level command which auto updates the servers results tab called resupd.
 
