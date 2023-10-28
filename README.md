@@ -29,7 +29,8 @@ This is a discord bot which fetches the cutoffs, college lists based on rank and
 
 ## airport:
 ![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/0ca4ada3-3d11-40d4-8b0b-9c7f9d2f0bf2)
-![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/ab7dae63-4566-45b9-82b9-aa6b9562bb8c)
+![image](https://github.com/Haz3-jolt/DasaBot/assets/79502699/807225b5-f0ac-434e-b330-7d604c1a8d4f)
+
 
 
 
