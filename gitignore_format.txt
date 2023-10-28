@@ -1,0 +1,6 @@
+Rename this to .gitignore to maintain API and login token safety.
+
+*.pyc
+.env
+.DS_Store
+db_key.json
