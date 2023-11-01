@@ -1,4 +1,0 @@
-*.pyc
-.env
-.DS_Store
-db_key.json
