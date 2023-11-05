@@ -26,7 +26,7 @@ class connectDB:
 
     '''
 
-    # constants, try not to change
+    # constants which link to the database login credentials
     DB_KEY_FILENAME = "DASA-Bot\db_key.json"
     RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
 
