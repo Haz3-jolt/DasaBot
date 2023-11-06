@@ -7,8 +7,7 @@ import os
 import pathlib
 from dotenv import load_dotenv
 
-#Main fuction for backend connectivity to gsheets databse
-
+# Class to connect to the database
 
 class connectDB:
     '''
@@ -26,15 +25,15 @@ class connectDB:
 
     '''
 
-    # constants which link to the database login credentials
+    # Constants
     DB_KEY_FILENAME = "DASA-Bot\db_key.json"
     RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
 
-    # Function to get sheet data for a specific year and round
+    # Function to test if the database is connected
 
     def get_sheet(self, year: str, round: str):
 
-        # Tries to find the sheet, raises value error if not found
+        # try to find a worksheet for respective year and round, raises value error if not found
         sheet_name = f'DASA_{year}_R{round}'
         try:
             sheet_index = self.worksheet_names.index(sheet_name)
@@ -45,9 +44,10 @@ class connectDB:
         wksdat = self.worksheet_data[sheet_index]
         return wksdat
 
-    # Function to get airport sheet 
+    # Function to get airport data sheet
     def get_air_sheet(self):
 
+        # Gets airport data sheet
         sheet_name = f'DASA_AIRPORT'
         try:
             sheet_index = self.worksheet_names.index(sheet_name)
@@ -61,7 +61,7 @@ class connectDB:
     # Gets college list in airport db
     def request_college_list_air(self):
 
-        # stores all colleges for airport database
+        # stores all colleges for airport database pulling
         current_sheet = connectDB.get_air_sheet(self)
 
         college_list = []
@@ -71,38 +71,38 @@ class connectDB:
 
         return college_list[2:]
 
-    # Fetches colleges from nick names given in alternate names colloum
+    # Function to fetch college name from nicknames in airport db
     def nick_to_air(self, college_nick: str):
         current_sheet = connectDB.get_air_sheet(self)
         college_list = connectDB.request_college_list_air(self)
-        # If user inputs the full name of a uni ("Indian Institute of Engineering Science and Technology, Shibpur")
+        # if user inputs the full name of a uni ("Indian Institute of Engineering Science and Technology, Shibpur")
         if college_nick.lower() in [col.lower() for col in college_list]:
             return college_nick.lower()
 
         for row in current_sheet:
-            # If user inputs the short form of a uni ("iiest")
+            # if user inputs a nickname ("IIEST")
             aliases = [ali.lower() for ali in row[6].split(', ')]
-            # print(aliases) # Uncomment to see the aliases
+            #print(aliases)
             if college_nick.lower() in aliases:
                 return row[1]  # will return the full name of the university
 
-    # Gets the final stats of the airport by fetching exact rows, and correct index thru college name
+    # Function to get airport stats
     def get_airport_stats(self, college_name):
         returnlist = []
         tempdat = connectDB.get_air_sheet(self)
         college_name = connectDB.nick_to_air(self, college_name)
-        #print(college_name) # Uncomment to see the college name
+        #print(college_name)
         for element in tempdat:
-            #print(element) # Uncomment to see the element
+            #print(element)
             if college_name.lower() == element[1].lower():
                 returnlist.append(element[1:6])
         finallist = returnlist[0]
         return finallist
 
-    # Function to request a list of colleges for a year and round
+    # Function to request a list of colleges.
     def request_college_list(self, year: str, round: str):
 
-        # Stores all values for current year and round
+        # stores all colleges for database pulling
         current_sheet = connectDB.get_sheet(self, year, round)
 
         college_list = []
@@ -112,7 +112,7 @@ class connectDB:
 
         return college_list[2:]
 
-    # Function to convert a college nickname to the original college name
+    # Function to fetch college name from nicknames
 
     def nick_to_college(self, year: str, round: str, college_nick: str):
         current_sheet = connectDB.get_sheet(self, year, round)
@@ -128,7 +128,7 @@ class connectDB:
         raise ValueError("Invalid college name")
         return
 
-    # +Function to request a list of branches for a specific year, round and college
+    # Function to request a list of branches.
 
     def request_branch_list(self, year: str, round: str, college_name: str, ciwg: bool):
         current_sheet = connectDB.get_sheet(self, year, round)
@@ -152,7 +152,7 @@ class connectDB:
             self, year, round, college_name, ciwg)
         code = branch_code.upper()
 
-        # Checks if branch is valid
+        # checks if branch is valid
         if code not in branch_list:
             raise ValueError("Invalid branch name")
             return
@@ -163,7 +163,7 @@ class connectDB:
             if row[2] != branch_code:
                 continue
 
-            # [branch name], jee_or, jee_cr, dasa_or, dasa_cr 
+            # [branch name], jee_or, jee_cr, dasa_or, dasa_cr
             return row[3:8] if not check else row[4:8]
 
     # Function used to fetch stats for all branches
@@ -171,7 +171,7 @@ class connectDB:
         current_sheet = connectDB.get_sheet(self, year, round)
         branch_list = connectDB.request_branch_list(
             self, year, round, college_name, ciwg)
-        # Checks if branch is valid
+        # checks if branch is valid
         for row in current_sheet:
             if row[1] != college_name:
                 continue
@@ -227,23 +227,23 @@ class connectDB:
             sorted_lists = sorted(zip(cutoffs, college, branches))
             scutoff, scollege, sbranches = zip(*sorted_lists)
             return (scutoff), (scollege), (sbranches)
-    # Initialisation function
+    # initialisation function
     def __init__(self):
         load_dotenv()
         connectDB.RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
         self.cwd_path = os.getcwd()
 
-        # Connects to DB
+        # connects to DB
 
-        # Gets path name of db_key.json
+        # gets path name of db_key.json
         db_key_path = os.path.abspath(connectDB.DB_KEY_FILENAME)
-        # Connects to service account
+        # connects to service account
         gc = gspread.service_account(filename=f'{db_key_path}')
 
-        self.database = gc.open_by_key(connectDB.RANK_SPREADSHEET_KEY)  # Connects to excel sheet
+        self.database = gc.open_by_key(connectDB.RANK_SPREADSHEET_KEY)  # connects to excel sheet
 
-        self.worksheets = self.database.worksheets()  # Gets all the worksheets
-        # Gets names of worksheets
+        self.worksheets = self.database.worksheets()  # gets all the worksheets
+        # gets names of worksheets
         self.worksheet_names = [
             worksheet.title for worksheet in self.worksheets]
 
@@ -252,5 +252,5 @@ class connectDB:
 
 
 obj = connectDB()
-# Uncomment next line for testing on terminal
+# Uncomment for terminal testing.
 #obj.testing()
