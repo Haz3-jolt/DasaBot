@@ -13,7 +13,7 @@ class connectDB:
     '''
     formats:
 
-    WORKSHEET NAME FORMAT: DASA_YYYY_Rx
+    WORKSHEETNAME FORMAT: DASA_YYYY_Rx
 
     WORKSHEET DATA FORMAT:
 
