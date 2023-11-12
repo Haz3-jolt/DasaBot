@@ -13,9 +13,9 @@ class connectDB:
     '''
     formats:
 
-    WORKSHEET NAME FORMAT: DASA_YYYY_Rx
+    WORKSHEETNAMEFORMAT: DASA_YYYY_Rx
 
-    WORKSHEET DATA FORMAT:
+    WORKSHEETDATAFORMAT:
 
     [index, college_name, course_code, course_name, or_jee, cr_jee, or_dasa, cr_dasa, nicknames, ciwg_status]
        0         1             2            3          4       5       6        7         8           9
