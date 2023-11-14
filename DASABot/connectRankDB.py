@@ -152,7 +152,7 @@ class connectDB:
             self, year, round, college_name, ciwg)
         code = branch_code.upper()
 
-        # checks if branch is valid
+        # Checks if branch is valid
         if code not in branch_list:
             raise ValueError("Invalid branch name")
             return
