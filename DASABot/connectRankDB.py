@@ -102,7 +102,7 @@ class connectDB:
     # Function to request a list of colleges.
     def request_college_list(self, year: str, round: str):
 
-        # stores all colleges for database pulling
+        # Stores all colleges for database pulling
         current_sheet = connectDB.get_sheet(self, year, round)
 
         college_list = []
@@ -138,9 +138,9 @@ class connectDB:
         branch_list = []
         for row in current_sheet:
             if row[1] != college_name:
-                continue  # skips any irrelevant college names
+                continue  # Skips any irrelevant college names
             if not ciwg and row[9] == '1':
-                continue  # checks for non-ciwg
+                continue  # Checks for non-ciwg
             if row[2] not in branch_list:
                 branch_list.append(row[2])
         return branch_list
@@ -152,7 +152,7 @@ class connectDB:
             self, year, round, college_name, ciwg)
         code = branch_code.upper()
 
-        # checks if branch is valid
+        # Checks if branch is valid
         if code not in branch_list:
             raise ValueError("Invalid branch name")
             return
@@ -171,7 +171,7 @@ class connectDB:
         current_sheet = connectDB.get_sheet(self, year, round)
         branch_list = connectDB.request_branch_list(
             self, year, round, college_name, ciwg)
-        # checks if branch is valid
+        # Checks if branch is valid
         for row in current_sheet:
             if row[1] != college_name:
                 continue
@@ -227,15 +227,15 @@ class connectDB:
             sorted_lists = sorted(zip(cutoffs, college, branches))
             scutoff, scollege, sbranches = zip(*sorted_lists)
             return (scutoff), (scollege), (sbranches)
-    # initialisation function
+    # Initialisation function
     def __init__(self):
         load_dotenv()
         connectDB.RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
         self.cwd_path = os.getcwd()
 
-        # connects to DB
+        # Connects to DB
 
-        # gets path name of db_key.json
+        # Gets path name of db_key.json
         db_key_path = os.path.abspath(connectDB.DB_KEY_FILENAME)
         # connects to service account
         gc = gspread.service_account(filename=f'{db_key_path}')
