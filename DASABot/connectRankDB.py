@@ -171,7 +171,7 @@ class connectDB:
         current_sheet = connectDB.get_sheet(self, year, round)
         branch_list = connectDB.request_branch_list(
             self, year, round, college_name, ciwg)
-        # checks if branch is valid
+        # Checks if branch is valid
         for row in current_sheet:
             if row[1] != college_name:
                 continue
@@ -227,15 +227,15 @@ class connectDB:
             sorted_lists = sorted(zip(cutoffs, college, branches))
             scutoff, scollege, sbranches = zip(*sorted_lists)
             return (scutoff), (scollege), (sbranches)
-    # initialisation function
+    # Initialisation function
     def __init__(self):
         load_dotenv()
         connectDB.RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
         self.cwd_path = os.getcwd()
 
-        # connects to DB
+        # Connects to DB
 
-        # gets path name of db_key.json
+        # Gets path name of db_key.json
         db_key_path = os.path.abspath(connectDB.DB_KEY_FILENAME)
         # connects to service account
         gc = gspread.service_account(filename=f'{db_key_path}')
