@@ -102,7 +102,7 @@ class connectDB:
     # Function to request a list of colleges.
     def request_college_list(self, year: str, round: str):
 
-        # stores all colleges for database pulling
+        # Stores all colleges for database pulling
         current_sheet = connectDB.get_sheet(self, year, round)
 
         college_list = []
