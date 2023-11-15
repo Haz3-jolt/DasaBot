@@ -75,7 +75,7 @@ class connectDB:
     def nick_to_air(self, college_nick: str):
         current_sheet = connectDB.get_air_sheet(self)
         college_list = connectDB.request_college_list_air(self)
-        # if user inputs the full name of a uni ("Indian Institute of Engineering Science and Technology, Shibpur")
+        # If user inputs the full name of a uni ("Indian Institute of Engineering Science and Technology, Shibpur")
         if college_nick.lower() in [col.lower() for col in college_list]:
             return college_nick.lower()
 
