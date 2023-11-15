@@ -80,7 +80,7 @@ class connectDB:
             return college_nick.lower()
 
         for row in current_sheet:
-            # if user inputs a nickname ("IIEST")
+            # If user inputs a nickname ("IIEST")
             aliases = [ali.lower() for ali in row[6].split(', ')]
             #print(aliases)
             if college_nick.lower() in aliases:
