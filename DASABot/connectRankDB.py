@@ -61,7 +61,7 @@ class connectDB:
     # Gets college list in airport db
     def request_college_list_air(self):
 
-        # stores all colleges for airport database pulling
+        # Stores all colleges for airport database pulling
         current_sheet = connectDB.get_air_sheet(self)
 
         college_list = []
