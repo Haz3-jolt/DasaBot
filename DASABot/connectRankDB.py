@@ -33,7 +33,7 @@ class connectDB:
 
     def get_sheet(self, year: str, round: str):
 
-        # try to find a worksheet for respective year and round, raises value error if not found
+        # Try to find a worksheet for respective year and round, raises value error if not found
         sheet_name = f'DASA_{year}_R{round}'
         try:
             sheet_index = self.worksheet_names.index(sheet_name)
@@ -61,7 +61,7 @@ class connectDB:
     # Gets college list in airport db
     def request_college_list_air(self):
 
-        # stores all colleges for airport database pulling
+        # Stores all colleges for airport database pulling
         current_sheet = connectDB.get_air_sheet(self)
 
         college_list = []
@@ -75,16 +75,16 @@ class connectDB:
     def nick_to_air(self, college_nick: str):
         current_sheet = connectDB.get_air_sheet(self)
         college_list = connectDB.request_college_list_air(self)
-        # if user inputs the full name of a uni ("Indian Institute of Engineering Science and Technology, Shibpur")
+        # If user inputs the full name of a uni ("Indian Institute of Engineering Science and Technology, Shibpur")
         if college_nick.lower() in [col.lower() for col in college_list]:
             return college_nick.lower()
 
         for row in current_sheet:
-            # if user inputs a nickname ("IIEST")
+            # If user inputs a nickname ("IIEST")
             aliases = [ali.lower() for ali in row[6].split(', ')]
             #print(aliases)
             if college_nick.lower() in aliases:
-                return row[1]  # will return the full name of the university
+                return row[1]  # Will return the full name of the university
 
     # Function to get airport stats
     def get_airport_stats(self, college_name):
