@@ -33,7 +33,7 @@ class connectDB:
 
     def get_sheet(self, year: str, round: str):
 
-        # try to find a worksheet for respective year and round, raises value error if not found
+        # Try to find a worksheet for respective year and round, raises value error if not found
         sheet_name = f'DASA_{year}_R{round}'
         try:
             sheet_index = self.worksheet_names.index(sheet_name)
