@@ -140,7 +140,7 @@ class connectDB:
             if row[1] != college_name:
                 continue  # skips any irrelevant college names
             if not ciwg and row[9] == '1':
-                continue  # checks for non-ciwg
+                continue  # Checks for non-ciwg
             if row[2] not in branch_list:
                 branch_list.append(row[2])
         return branch_list
