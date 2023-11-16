@@ -138,7 +138,7 @@ class connectDB:
         branch_list = []
         for row in current_sheet:
             if row[1] != college_name:
-                continue  # skips any irrelevant college names
+                continue  # Skips any irrelevant college names
             if not ciwg and row[9] == '1':
                 continue  # Checks for non-ciwg
             if row[2] not in branch_list:
