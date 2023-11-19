@@ -7,7 +7,7 @@ import os
 import pathlib
 from dotenv import load_dotenv
 
-#Main fuction for backend connectivity to gsheets databse
+# Class for backend connectivity to gsheets databse
 
 
 class connectDB:
