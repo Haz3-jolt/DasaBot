@@ -58,10 +58,10 @@ class connectDB:
         wksdat = self.worksheet_data[sheet_index]
         return wksdat[2:]
 
-    # Gets college list in airport db
+    # Gets college list from airport db
     def request_college_list_air(self):
 
-        # Stores all colleges for airport database pulling
+        # Stores all colleges for database pulling
         current_sheet = connectDB.get_air_sheet(self)
 
         college_list = []
@@ -71,7 +71,7 @@ class connectDB:
 
         return college_list[2:]
 
-    # Function to fetch college name from nicknames in airport db
+    # Function to fetch college name from nicknames from airport db
     def nick_to_air(self, college_nick: str):
         current_sheet = connectDB.get_air_sheet(self)
         college_list = connectDB.request_college_list_air(self)
