@@ -99,6 +99,7 @@ class connectDB:
         finallist = returnlist[0]
         return finallist
 
+
     # Function to request a list of colleges.
     def request_college_list(self, year: str, round: str):
 
