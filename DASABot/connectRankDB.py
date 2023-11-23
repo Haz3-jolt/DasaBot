@@ -245,7 +245,7 @@ class connectDB:
         self.database = gc.open_by_key(connectDB.RANK_SPREADSHEET_KEY)  # Connects to excel sheet
 
         self.worksheets = self.database.worksheets()  # Gets all the worksheets
-        # ets names of worksheets
+        # Gets names of worksheets
         self.worksheet_names = [
             worksheet.title for worksheet in self.worksheets]
 
