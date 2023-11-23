@@ -171,6 +171,7 @@ class connectDB:
         current_sheet = connectDB.get_sheet(self, year, round)
         branch_list = connectDB.request_branch_list(
             self, year, round, college_name, ciwg)
+        
         # Checks if branch is valid
         for row in current_sheet:
             if row[1] != college_name:
@@ -181,6 +182,7 @@ class connectDB:
                 self, year, round, college_name, branch, ciwg, check=True)
             ranks.append([branch, st])
         return ranks
+
 
     # Function for reverse engine
     def reverse_engine(self, rank: str, ciwg: bool, branch: str = None):
@@ -227,23 +229,23 @@ class connectDB:
             sorted_lists = sorted(zip(cutoffs, college, branches))
             scutoff, scollege, sbranches = zip(*sorted_lists)
             return (scutoff), (scollege), (sbranches)
+        
+
     # Initialisation function
     def __init__(self):
         load_dotenv()
         connectDB.RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
         self.cwd_path = os.getcwd()
 
-        # Connects to DB
-
         # Gets path name of db_key.json
         db_key_path = os.path.abspath(connectDB.DB_KEY_FILENAME)
-        # connects to service account
+        # Connects to service account
         gc = gspread.service_account(filename=f'{db_key_path}')
 
-        self.database = gc.open_by_key(connectDB.RANK_SPREADSHEET_KEY)  # connects to excel sheet
+        self.database = gc.open_by_key(connectDB.RANK_SPREADSHEET_KEY)  # Connects to excel sheet
 
-        self.worksheets = self.database.worksheets()  # gets all the worksheets
-        # gets names of worksheets
+        self.worksheets = self.database.worksheets()  # Gets all the worksheets
+        # ets names of worksheets
         self.worksheet_names = [
             worksheet.title for worksheet in self.worksheets]
 
