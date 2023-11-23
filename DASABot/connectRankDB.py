@@ -145,6 +145,7 @@ class connectDB:
                 branch_list.append(row[2])
         return branch_list
 
+
     # Functions to get rank statistics
     def get_statistics(self, year: str, round: str, college_name: str, branch_code: str, ciwg: bool, check: bool = False):
         current_sheet = connectDB.get_sheet(self, year, round)
