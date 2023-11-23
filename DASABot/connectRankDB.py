@@ -99,6 +99,7 @@ class connectDB:
         finallist = returnlist[0]
         return finallist
 
+
     # Function to request a list of colleges.
     def request_college_list(self, year: str, round: str):
 
@@ -112,8 +113,8 @@ class connectDB:
 
         return college_list[2:]
 
-    # Function to fetch college name from nicknames
 
+    # Function to fetch college name from nicknames
     def nick_to_college(self, year: str, round: str, college_nick: str):
         current_sheet = connectDB.get_sheet(self, year, round)
         college_list = connectDB.request_college_list(self, year, round)
@@ -127,9 +128,9 @@ class connectDB:
 
         raise ValueError("Invalid college name")
         return
+    
 
     # Function to request a list of branches.
-
     def request_branch_list(self, year: str, round: str, college_name: str, ciwg: bool):
         current_sheet = connectDB.get_sheet(self, year, round)
 
@@ -144,6 +145,7 @@ class connectDB:
             if row[2] not in branch_list:
                 branch_list.append(row[2])
         return branch_list
+
 
     # Functions to get rank statistics
     def get_statistics(self, year: str, round: str, college_name: str, branch_code: str, ciwg: bool, check: bool = False):
@@ -165,6 +167,7 @@ class connectDB:
 
             # [branch name], jee_or, jee_cr, dasa_or, dasa_cr
             return row[3:8] if not check else row[4:8]
+
 
     # Function used to fetch stats for all branches
     def get_statistics_for_all(self, year: str, round: str, college_name: str, ciwg: bool):
@@ -245,7 +248,7 @@ class connectDB:
         self.database = gc.open_by_key(connectDB.RANK_SPREADSHEET_KEY)  # Connects to excel sheet
 
         self.worksheets = self.database.worksheets()  # Gets all the worksheets
-        # ets names of worksheets
+        # Gets names of worksheets
         self.worksheet_names = [
             worksheet.title for worksheet in self.worksheets]
 
