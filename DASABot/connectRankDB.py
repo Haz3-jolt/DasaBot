@@ -127,9 +127,9 @@ class connectDB:
 
         raise ValueError("Invalid college name")
         return
-
+    
+    
     # Function to request a list of branches.
-
     def request_branch_list(self, year: str, round: str, college_name: str, ciwg: bool):
         current_sheet = connectDB.get_sheet(self, year, round)
 
