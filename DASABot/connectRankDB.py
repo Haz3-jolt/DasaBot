@@ -112,8 +112,8 @@ class connectDB:
 
         return college_list[2:]
 
-    # Function to fetch college name from nicknames
 
+    # Function to fetch college name from nicknames
     def nick_to_college(self, year: str, round: str, college_nick: str):
         current_sheet = connectDB.get_sheet(self, year, round)
         college_list = connectDB.request_college_list(self, year, round)
@@ -128,7 +128,7 @@ class connectDB:
         raise ValueError("Invalid college name")
         return
     
-    
+
     # Function to request a list of branches.
     def request_branch_list(self, year: str, round: str, college_name: str, ciwg: bool):
         current_sheet = connectDB.get_sheet(self, year, round)
