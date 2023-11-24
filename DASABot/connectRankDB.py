@@ -84,7 +84,7 @@ class connectDB:
             aliases = [ali.lower() for ali in row[6].split(', ')]
             #print(aliases) [This is for debugging purposes]
             if college_nick.lower() in aliases:
-                return row[1]  # Will return the full name of the university
+                return row[1]  # Will return the full name of the uni
 
     # Function to get airport stats
     def get_airport_stats(self, college_name):
