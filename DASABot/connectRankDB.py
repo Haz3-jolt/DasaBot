@@ -61,7 +61,7 @@ class connectDB:
     # Gets college list from airport db
     def request_college_list_air(self):
 
-        # Stores all colleges for database pulling
+        # Stores all colleges for database connection
         current_sheet = connectDB.get_air_sheet(self)
 
         college_list = []
@@ -84,7 +84,7 @@ class connectDB:
             aliases = [ali.lower() for ali in row[6].split(', ')]
             #print(aliases) [This is for debugging purposes]
             if college_nick.lower() in aliases:
-                return row[1]  # Will return the full name of the university
+                return row[1]  # Will return the full name of the uni
 
     # Function to get airport stats
     def get_airport_stats(self, college_name):
