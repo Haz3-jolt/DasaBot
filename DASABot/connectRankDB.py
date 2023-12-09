@@ -29,9 +29,9 @@ class connectDB:
     DB_KEY_FILENAME = "DASA-Bot\db_key.json"
     RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
 
+
     def get_sheet(self, year: str, round: str):
 
-        # Try to find a worksheet for respective year and round, raises value error if not found
         sheet_name = f'DASA_{year}_R{round}'
         try:
             sheet_index = self.worksheet_names.index(sheet_name)
@@ -42,7 +42,7 @@ class connectDB:
         wksdat = self.worksheet_data[sheet_index]
         return wksdat
 
-    # Function to get airport data sheet
+
     def get_air_sheet(self):
 
         sheet_name = f'DASA_AIRPORT'
@@ -55,6 +55,7 @@ class connectDB:
         wksdat = self.worksheet_data[sheet_index]
         return wksdat[2:]
 
+
     def request_college_list_air(self):
 
         current_sheet = connectDB.get_air_sheet(self)
@@ -65,6 +66,7 @@ class connectDB:
                 college_list.append(row[1])
 
         return college_list[2:]
+
 
     def nick_to_air(self, college_nick: str):
         current_sheet = connectDB.get_air_sheet(self)
@@ -80,15 +82,20 @@ class connectDB:
             if college_nick.lower() in aliases:
                 return row[1]  # Will return the full name of the uni
 
+
     def get_airport_stats(self, college_name):
         returnlist = []
         tempdat = connectDB.get_air_sheet(self)
         college_name = connectDB.nick_to_air(self, college_name)
+        #print(college_name)
         for element in tempdat:
+            #print(element)
             if college_name.lower() == element[1].lower():
                 returnlist.append(element[1:6])
         finallist = returnlist[0]
         return finallist
+
+
 
     def request_college_list(self, year: str, round: str):
 
@@ -149,6 +156,7 @@ class connectDB:
             if row[2] != branch_code:
                 continue
 
+            # [branch name], jee_or, jee_cr, dasa_or, dasa_cr
             return row[3:8] if not check else row[4:8]
 
 
@@ -168,6 +176,7 @@ class connectDB:
         return ranks
 
 
+    # Function for legacy reverse engine 
     def reverse_engine(self, rank: str, ciwg: bool, branch: str = None):
         current_sheet = connectDB.get_sheet(self, "2023", "1")
         index = None
@@ -214,18 +223,18 @@ class connectDB:
             return (scutoff), (scollege), (sbranches)
         
 
+    # Initialisation function
     def __init__(self):
         load_dotenv()
         connectDB.RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
         self.cwd_path = os.getcwd()
+
         db_key_path = os.path.abspath(connectDB.DB_KEY_FILENAME)
-        # Connects to service account
         gc = gspread.service_account(filename=f'{db_key_path}')
 
-        self.database = gc.open_by_key(connectDB.RANK_SPREADSHEET_KEY)  # Connects to excel sheet
+        self.database = gc.open_by_key(connectDB.RANK_SPREADSHEET_KEY)  
 
-        self.worksheets = self.database.worksheets()  # Gets all the worksheets
-        # Gets names of worksheets
+        self.worksheets = self.database.worksheets()  
         self.worksheet_names = [
             worksheet.title for worksheet in self.worksheets]
 
