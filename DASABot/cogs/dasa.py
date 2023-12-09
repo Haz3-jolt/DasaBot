@@ -263,36 +263,6 @@ class DASACommands(commands.Cog):
             em.set_thumbnail(
                 url="https://dasanit.org/dasa2023/images/dasa_new.png'")
             await ctx.send(embed=em)
-
-    # @commands.command()
-    # @commands.is_owner()
-    # async def welcome(self, ctx):
-    #     await ctx.send("Hey @everyone! So I am finally live. It's no well kept secret that I have been in development for the past month as I'm sure you would have seen my creators testing my beta versions or showcasing them for use but I am proud to announce that today is the day DASABot 1.0 is finally active! My creators have given me the following functionalities to help all of you with your future college endeavours.\n- </cutoff:1131246029531004968> which enables me to take in your college, year, round and branch to tell you the cutoff of what you asked! I even have a CIWG filter!\n- </analyse:1131969029968502918> lets me take in your JEE CRL to tell you what colleges have closing ranks close to yours so you can get a brief idea of what you can and can not get! ***This command does not signify guaranteed seats at any mentioned college. This is solely as algorithm based on CRL and Closing ranks and can not predict the ranks of forthcoming years.***\n- </airport:1133054254203011082> lets me tell you about the airports nearby the college you ask.\nAll in all, I'm glad I can finally be of service to every one of you and I look forward to helping everyone out on this server! I was made by <@536919776522534973> <@275609153274380289> <@540964533884289044> and <@506887352380162048>. Please report any bugs you encounter to them.")
-    #     await ctx.message.delete()
-
-    @commands.command()
-    @commands.is_owner()
-    async def gandu(self, ctx):
-        await ctx.send("gandu.")
-        await ctx.message.delete()
-
-    @commands.command()
-    @commands.is_owner()
-    async def sudeep(self, ctx):
-        await ctx.send("What😡 ra⁉️Sudeep🧔🏾too much😮 cock🍆you're showing 🧐bro frankly🤭tell you🗣️Sudeep-you're showing too😅 much cock🍆bro you come to Malleshwaram area 🌴pop 👊🏾you with my gang👿I said you once 😐and I'm saiding 🗣️you once more time 💪ra Sudeep🧔🏾‍ I'll pop you 😋if you show too 🤏")
-        await ctx.message.delete()
-
-    @commands.command()
-    @commands.is_owner()
-    async def nsut(self, ctx):
-        await ctx.send("NSUT is like that one ex who refuses to tell you anything and is super toxic to you but she's a 10/10")
-        await ctx.message.delete()
-
-    @commands.command()
-    @commands.is_owner()
-    async def spiderman(self, ctx):
-        await ctx.send("https://media.tenor.com/GIbER2Fy3UUAAAAC/spiderman-sad-spiderman.gif")
-        await ctx.message.delete()
     
 
 async def setup(bot):

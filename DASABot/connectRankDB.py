@@ -29,8 +29,6 @@ class connectDB:
     DB_KEY_FILENAME = "DASA-Bot\db_key.json"
     RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
 
-    # Function to test if the database is connected
-
     def get_sheet(self, year: str, round: str):
 
         # Try to find a worksheet for respective year and round, raises value error if not found
@@ -47,7 +45,6 @@ class connectDB:
     # Function to get airport data sheet
     def get_air_sheet(self):
 
-        # Gets airport data sheet
         sheet_name = f'DASA_AIRPORT'
         try:
             sheet_index = self.worksheet_names.index(sheet_name)
@@ -58,10 +55,8 @@ class connectDB:
         wksdat = self.worksheet_data[sheet_index]
         return wksdat[2:]
 
-    # Gets college list from airport db
     def request_college_list_air(self):
 
-        # Stores all colleges for database connection
         current_sheet = connectDB.get_air_sheet(self)
 
         college_list = []
@@ -71,7 +66,6 @@ class connectDB:
 
         return college_list[2:]
 
-    # Function to fetch college name from nicknames from airport db
     def nick_to_air(self, college_nick: str):
         current_sheet = connectDB.get_air_sheet(self)
         college_list = connectDB.request_college_list_air(self)
@@ -86,24 +80,18 @@ class connectDB:
             if college_nick.lower() in aliases:
                 return row[1]  # Will return the full name of the uni
 
-    # Function to get airport stats
     def get_airport_stats(self, college_name):
         returnlist = []
         tempdat = connectDB.get_air_sheet(self)
         college_name = connectDB.nick_to_air(self, college_name)
-        #print(college_name)
         for element in tempdat:
-            #print(element)
             if college_name.lower() == element[1].lower():
                 returnlist.append(element[1:6])
         finallist = returnlist[0]
         return finallist
 
-
-    # Function to request a list of colleges.
     def request_college_list(self, year: str, round: str):
 
-        # Stores all colleges for database pulling
         current_sheet = connectDB.get_sheet(self, year, round)
 
         college_list = []
@@ -114,7 +102,6 @@ class connectDB:
         return college_list[2:]
 
 
-    # Function to fetch college name from nicknames
     def nick_to_college(self, year: str, round: str, college_nick: str):
         current_sheet = connectDB.get_sheet(self, year, round)
         college_list = connectDB.request_college_list(self, year, round)
@@ -130,7 +117,6 @@ class connectDB:
         return
     
 
-    # Function to request a list of branches.
     def request_branch_list(self, year: str, round: str, college_name: str, ciwg: bool):
         current_sheet = connectDB.get_sheet(self, year, round)
 
@@ -139,22 +125,20 @@ class connectDB:
         branch_list = []
         for row in current_sheet:
             if row[1] != college_name:
-                continue  # Skips any irrelevant college names
+                continue  
             if not ciwg and row[9] == '1':
-                continue  # Checks for non-ciwg
+                continue  
             if row[2] not in branch_list:
                 branch_list.append(row[2])
         return branch_list
 
 
-    # Functions to get rank statistics
     def get_statistics(self, year: str, round: str, college_name: str, branch_code: str, ciwg: bool, check: bool = False):
         current_sheet = connectDB.get_sheet(self, year, round)
         branch_list = connectDB.request_branch_list(
             self, year, round, college_name, ciwg)
         code = branch_code.upper()
 
-        # Checks if branch is valid
         if code not in branch_list:
             raise ValueError("Invalid branch name")
             return
@@ -165,17 +149,14 @@ class connectDB:
             if row[2] != branch_code:
                 continue
 
-            # [branch name], jee_or, jee_cr, dasa_or, dasa_cr
             return row[3:8] if not check else row[4:8]
 
 
-    # Function used to fetch stats for all branches
     def get_statistics_for_all(self, year: str, round: str, college_name: str, ciwg: bool):
         current_sheet = connectDB.get_sheet(self, year, round)
         branch_list = connectDB.request_branch_list(
             self, year, round, college_name, ciwg)
         
-        # Checks if branch is valid
         for row in current_sheet:
             if row[1] != college_name:
                 continue
@@ -187,7 +168,6 @@ class connectDB:
         return ranks
 
 
-    # Function for reverse engine
     def reverse_engine(self, rank: str, ciwg: bool, branch: str = None):
         current_sheet = connectDB.get_sheet(self, "2023", "1")
         index = None
@@ -234,13 +214,10 @@ class connectDB:
             return (scutoff), (scollege), (sbranches)
         
 
-    # Initialisation function
     def __init__(self):
         load_dotenv()
         connectDB.RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
         self.cwd_path = os.getcwd()
-
-        # Gets path name of db_key.json
         db_key_path = os.path.abspath(connectDB.DB_KEY_FILENAME)
         # Connects to service account
         gc = gspread.service_account(filename=f'{db_key_path}')
@@ -257,5 +234,5 @@ class connectDB:
 
 
 obj = connectDB()
-# Uncomment for terminal testing.
+# Uncomment next line for terminal testing.
 #obj.testing()

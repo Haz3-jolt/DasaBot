@@ -1,257 +1,83 @@
-'''
-
-'''
-
-import gspread
 import os
-import pathlib
 from dotenv import load_dotenv
+from connectRankDB import connectDB
+from discord.ext import commands
+from discord import app_commands
+import asyncio
+import discord
 
-# Class for backend connectivity to gsheets databse
+load_dotenv()
 
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-class connectDB:
-    '''
-    formats:
+intents = discord.Intents.all()
+intents.message_content = True
+intents.presences = True
+bot = commands.Bot(command_prefix="/",
+                    intents=intents)
+bot.remove_command('help')
 
-    WORKSHEET NAME FORMAT: DASA_YYYY_Rx
+@bot.event
+async def on_ready():
+    print("Bot is online")
+    try:
+        synched = await bot.tree.sync()
+        print(f'Synched {len(synched)} command(s)')
+        await bot.change_presence(status=discord.Status.do_not_disturb, activity=discord.Game('/help'))
+    except Exception as e:
+        print(e)
 
-    WORKSHEET DATA FORMAT:
-
-    [index, college_name, course_code, course_name, or_jee, cr_jee, or_dasa, cr_dasa, nicknames, ciwg_status]
-       0         1             2            3          4       5       6        7         8           9
-
-    where: or stands for opening rank
-           cr stands for closing rank
-
-    '''
-
-    # constants, try not to change
-    DB_KEY_FILENAME = "DasaBot\DASABot\db_key.json"
-    RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
-
-    # function to get sheet data for a specific year and round
-
-    def get_sheet(self, year: str, round: str):
-
-        # try to find a worksheet for respective year and round, raises value error if not found
-        sheet_name = f'DASA_{year}_R{round}'
-        try:
-            sheet_index = self.worksheet_names.index(sheet_name)
-        except ValueError:
-            raise ValueError("Invalid year / round")
-            return
-
-        wksdat = self.worksheet_data[sheet_index]
-        return wksdat
-
-    # function to connect to airplane data sheet
-    def get_air_sheet(self):
-
-        # Gets airport data sheet
-        sheet_name = f'DASA_AIRPORT'
-        try:
-            sheet_index = self.worksheet_names.index(sheet_name)
-        except ValueError:
-            raise ValueError("Invalid year / round")
-            return
-
-        wksdat = self.worksheet_data[sheet_index]
-        return wksdat[2:]
-
-    #Gets college list in airport db
-    def request_college_list_air(self):
-
-        # stores all colleges for airport database pulling
-        current_sheet = connectDB.get_air_sheet(self)
-
-        college_list = []
-        for row in current_sheet:
-            if row[1] not in college_list:
-                college_list.append(row[1])
-
-        return college_list[2:]
-
-    #fetches colleges from nick names given in alternate names colloum
-    def nick_to_air(self, college_nick: str):
-        current_sheet = connectDB.get_air_sheet(self)
-        college_list = connectDB.request_college_list_air(self)
-        # if user inputs the full name of a uni ("Indian Institute of Engineering Science and Technology, Shibpur")
-        if college_nick.lower() in [col.lower() for col in college_list]:
-            return college_nick.lower()
-
-        for row in current_sheet:
-            # if user inputs the short form of a uni ("iiest")
-            aliases = [ali.lower() for ali in row[6].split(', ')]
-            #print(aliases)
-            if college_nick.lower() in aliases:
-                return row[1]  # will return the full name of the university
-
-    #Gets the final stats of the airport by fetching exact rows, and correct index thru college name
-    def get_airport_stats(self, college_name):
-        returnlist = []
-        tempdat = connectDB.get_air_sheet(self)
-        college_name = connectDB.nick_to_air(self, college_name)
-        #print(college_name)
-        for element in tempdat:
-            #print(element)
-            if college_name.lower() == element[1].lower():
-                returnlist.append(element[1:6])
-        finallist = returnlist[0]
-        return finallist
-
-    # function to request a list of colleges for a specific year and round
-    def request_college_list(self, year: str, round: str):
-
-        # stores all values for current year and round
-        current_sheet = connectDB.get_sheet(self, year, round)
-
-        college_list = []
-        for row in current_sheet:
-            if row[1] not in college_list:
-                college_list.append(row[1])
-
-        return college_list[2:]
-
-    # function to convert a college nickname to the original college name
-
-    def nick_to_college(self, year: str, round: str, college_nick: str):
-        current_sheet = connectDB.get_sheet(self, year, round)
-        college_list = connectDB.request_college_list(self, year, round)
-
-        if college_nick in college_list:
-            return college_nick
-
-        for row in current_sheet:
-            if college_nick in [n.strip() for n in row[8].split(",")]:
-                return row[1]
-
-        raise ValueError("Invalid college name")
-        return
-
-    # function to request a list of branches for a specific year, round and college
-
-    def request_branch_list(self, year: str, round: str, college_name: str, ciwg: bool):
-        current_sheet = connectDB.get_sheet(self, year, round)
-
-        college_name = connectDB.nick_to_college(
-            self, year, round, college_name)
-        branch_list = []
-        for row in current_sheet:
-            if row[1] != college_name:
-                continue  # skips any irrelevant college names
-            if not ciwg and row[9] == '1':
-                continue  # checks for non-ciwg
-            if row[2] not in branch_list:
-                branch_list.append(row[2])
-        return branch_list
-
-    # functions to get rank statistics
-    def get_statistics(self, year: str, round: str, college_name: str, branch_code: str, ciwg: bool, check: bool = False):
-        current_sheet = connectDB.get_sheet(self, year, round)
-        branch_list = connectDB.request_branch_list(
-            self, year, round, college_name, ciwg)
-        code = branch_code.upper()
-
-        # checks if branch is valid
-        if code not in branch_list:
-            raise ValueError("Invalid branch name")
-            return
-
-        for row in current_sheet:
-            if row[1] != college_name:
-                continue
-            if row[2] != branch_code:
-                continue
-
-            # [branch name], jee_or, jee_cr, dasa_or, dasa_cr
-            return row[3:8] if not check else row[4:8]
-
-    #function used to fetch stats for all branches
-    def get_statistics_for_all(self, year: str, round: str, college_name: str, ciwg: bool):
-        current_sheet = connectDB.get_sheet(self, year, round)
-        branch_list = connectDB.request_branch_list(
-            self, year, round, college_name, ciwg)
-        # checks if branch is valid
-        for row in current_sheet:
-            if row[1] != college_name:
-                continue
-        ranks = []
-        for branch in branch_list:
-            st = connectDB.get_statistics(
-                self, year, round, college_name, branch, ciwg, check=True)
-            ranks.append([branch, st])
-        return ranks
-
-    #Function for reverse engine
-    def reverse_engine(self, rank: str, ciwg: bool, branch: str = None):
-        current_sheet = connectDB.get_sheet(self, "2023", "1")
-        index = None
-        if branch is not None:
-            branch = branch.upper()
-            if ciwg:
-                branch += "1"
-            cutoffs, college = [int(row[5]) for row in current_sheet if branch == row[2]], [
-                row[1] for row in current_sheet if branch == row[2]]
-
-            cutoffscopy = list(cutoffs)
-            indices_to_remove = []
-            for cutoff in cutoffscopy:
-                if int(rank) - int(cutoff) > 10000:
-                    indices_to_remove.append(cutoffs.index(cutoff))
-            for index in sorted(indices_to_remove, reverse=True):
-                del cutoffs[index]
-                del college[index]
-            sorted_lists = sorted(zip(cutoffs, college))
-            scutoffs, scollege = zip(*sorted_lists)
-            return scutoffs, scollege
-        else:
-            if ciwg:
-                branches = [row[2] for row in current_sheet if row[9] == '1' and row[2] not in ['BAR1', 'BAR', 'ARH', 'ARH1', 'ARC', 'ARC1', 'ARC', 'ARC1']]
-                cutoffs, college = [int(row[5]) for row in current_sheet if row[9] == '1' and row[2] not in ['BAR1', 'BAR', 'ARH', 'ARH1', 'ARC', 'ARC1']], [
-                    row[1] for row in current_sheet if row[9] == '1' and row[2] not in ['BAR1', 'BAR', 'ARH', 'ARH1', 'ARC', 'ARC1']]
-            else:
-                branches = [row[2] for row in current_sheet if (
-                    row[9] == '0' and row[2] not in ['BAR1', 'BAR', 'ARH', 'ARH1', 'ARC', 'ARC1'])]
-                cutoffs, college = [int(row[5]) for row in current_sheet if (row[9] == '0' and row[2] not in ['BAR1', 'BAR', 'ARH', 'ARH1', 'ARC', 'ARC1'])], [
-                    row[1] for row in current_sheet if (row[9] == '0' and row[2] not in ['BAR1', 'BAR', 'ARH', 'ARH1', 'ARC', 'ARC1'])]
-
-            cutoffscopy = cutoffs.copy()
-            indices_to_remove = []
-            for cutoff in cutoffscopy:
-                if int(rank) - int(cutoff) > 10000:
-                    indices_to_remove.append(cutoffs.index(cutoff))
-            for index in sorted(indices_to_remove, reverse=True):
-                del cutoffs[index]
-                del college[index]
-                del branches[index]
-            sorted_lists = sorted(zip(cutoffs, college, branches))
-            scutoff, scollege, sbranches = zip(*sorted_lists)
-            return (scutoff), (scollege), (sbranches)
-    # initialisation function
-    def __init__(self):
-        load_dotenv()
-        connectDB.RANK_SPREADSHEET_KEY = os.getenv("RANK_SPREADSHEET_KEY")
-        self.cwd_path = os.getcwd()
-
-        # connects to DB
-
-        # gets path name of db_key.json
-        db_key_path = 'DasaBot\DASABot\db_key.json'
-        # connects to service account
-        gc = gspread.service_account(filename=f'{db_key_path}')
-
-        self.database = gc.open_by_key(connectDB.RANK_SPREADSHEET_KEY)  # connects to excel sheet
-
-        self.worksheets = self.database.worksheets()  # gets all the worksheets
-        # gets names of worksheets
-        self.worksheet_names = [
-            worksheet.title for worksheet in self.worksheets]
-
-        self.worksheet_data = [worksheet.get_all_values()
-                               for worksheet in self.worksheets]
+@bot.tree.command(name = 'ping', description = 'Get the DASA Bot response time')
+async def ping(interaction: discord.Interaction):
+    await interaction.response.send_message(f'Pong! {round(bot.latency * 1000)}ms')
 
 
-obj = connectDB()
-#Uncomment next line for testing
-#obj.testing()
+@bot.tree.command(name = 'help', description='Help for DASA Bot')
+async def help(interaction: discord.Interaction):
+    em = discord.Embed(title="DASA Bot Commands",
+                        description="Display DASA cutoffs and more onto discord chat with these commands! \n", color=discord.Color.random())
+    em.add_field(name='</cutoff:1131246029531004968>  `<college> <year> <ciwg(Y/N)> <round> [branch]`',
+                    value='Displays the ranks of a specified college and branch based on the user-provided year and round',
+                    inline=False)
+    em.add_field(name='</analyse:1131969029968502918>  `<JEE rank>, <ciwg(Y/N)>, [branch]`',
+                    value='Displays a list of colleges and branches whose closing ranks closely match the user-provided rank.',
+                    inline=False)
+    em.add_field(name='</airport:1133054254203011082>  `<college>`',
+                    value='Displays data about the nearest airport to the college specified by the user.',
+                    inline=False)
+    em.set_footer(text="This message will be deleted after 1 minute.")
+    await interaction.response.send_message(embed=em, delete_after=60)
+
+@bot.command(description='Reload a cog.')
+@commands.is_owner()
+async def reload(ctx, extension):
+    try:
+        await bot.reload_extension(f'cogs.{extension}')
+        await ctx.send(f'`{extension}` `has been reloaded.`')
+    except:
+        await ctx.send("`Invalid module.`")
+
+@bot.command(hidden=True)
+@commands.is_owner()
+async def status(ctx, stats:str):
+    await bot.change_presence(status=discord.Status.do_not_disturb, activity=discord.Game(stats))
+    await ctx.send(f'Status has been changed to `{status}.`')
+
+@bot.command(description='Turns off the bot.')
+@commands.is_owner()
+async def shut(ctx):
+    await ctx.send('`Bot going offline!`👋')
+    await bot.change_presence(status=discord.Status.offline)
+    await bot.close()
+    exit()
+
+async def load():
+    for file in os.listdir("DASA-Bot\DASABot\cogs"):
+        if file.endswith(".py"):
+            await bot.load_extension(f"cogs.{file[:-3]}")
+
+async def main():
+    await load()
+    await bot.start(BOT_TOKEN)
+
+asyncio.run(main())
