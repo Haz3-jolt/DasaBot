@@ -1,5 +1,7 @@
 # DasaBot - Discord Cutoffs and College Info Bot
 
+> A discord bot to fetch college cutoffs
+
 ## Table of Contents
 - [Required Dependencies](#required-dependencies)
 - [Summary](#summary)
@@ -16,7 +18,7 @@ pip install -r requirements.txt
 
 ### Summary
 
-DasaBot is a versatile Discord bot designed to provide information about cutoffs, college lists, and closest airports. It offers these details via Discord slash commands, processes the requests in [mainBot.py](DASABot/mainBot.py), communicates with [connectRankDB.py](DASABot/connectRankDB.py) for relevant data, and analyzes user input for any college nicknames (e.g., "nitt" for NIT Trichy). It retrieves data from a Google Sheets database and delivers the results to Discord.
+DasaBot is a Discord bot designed to provide information about cutoffs, college lists, and closest airports. It offers these details via Discord slash commands, processes the requests in [mainBot.py](DASABot/mainBot.py), communicates with [connectRankDB.py](DASABot/connectRankDB.py) for relevant data, and analyzes user input for any college nicknames (e.g., "nitt" for NIT Trichy). It retrieves data from a Google Sheets database and delivers the results to Discord.
 
 **Note:** This project is a fork of the original [DasaBot](https://github.com/DASA-boys/DASA-Bot), a collaborative effort of several authors.
 
