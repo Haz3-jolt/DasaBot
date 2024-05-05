@@ -35,8 +35,8 @@ DasaBot features several slash commands that enable you to retrieve specific inf
 ![image-002](https://github.com/Haz3-jolt/DasaBot/assets/79502699/9e864e24-1706-4310-a46a-38176ebb62c4)
 ![image-004](https://github.com/Haz3-jolt/DasaBot/assets/79502699/a252db12-0408-45cc-9a2c-c3e2c7b9130a)
 
-#### Analyze (branch is optional)
-- `/analyze`: Find colleges with closing rank cutoffs closest to the rank entered by the user. If no branch is provided, it displays cutoffs for all branches from colleges within a close range of the given rank.
+#### Analyse (branch is optional)
+- `/analyse`: Find colleges with closing rank cutoffs closest to the rank entered by the user. If no branch is provided, it displays cutoffs for all branches from colleges within a close range of the given rank.
 
 ![image-005](https://github.com/Haz3-jolt/DasaBot/assets/79502699/e1de1d00-95ca-47f4-bd57-065b03e23d23)
 ![image-006](https://github.com/Haz3-jolt/DasaBot/assets/79502699/b79c07a3-33a1-421c-999a-1598049657df)
